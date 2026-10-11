@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TRIKARA - Iyarkai Maruthuvam</title>
 <style>
-/* Same design thaan */
 body{font-family: sans-serif; background:#F9F5EB; margin:0}
 header{background:#2d4a3e; color:white; padding:20px; text-align:center}
 .products{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px; padding:20px; max-width:1000px; margin:auto}
@@ -16,7 +15,6 @@ header{background:#2d4a3e; color:white; padding:20px; text-align:center}
 .btns{display:flex; gap:10px; margin-top:10px}
 .btn{flex:1; padding:10px; border-radius:10px; border:2px solid #2d4a3e; cursor:pointer; font-weight:bold}
 .buy{background:#2d4a3e; color:white}
-/* Popup Style */
 #popup{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000; padding:15px}
 #popup-content{background:white; max-width:500px; width:100%; border-radius:20px; padding:20px; position:relative}
 #popup-close{position:absolute; top:10px; right:15px; font-size:30px; cursor:pointer}
@@ -30,7 +28,6 @@ header{background:#2d4a3e; color:white; padding:20px; text-align:center}
 
 <div class="products" id="product-list"></div>
 
-<!-- Product Details Popup -->
 <div id="popup" onclick="closePopup()">
 <div id="popup-content" onclick="event.stopPropagation()">
 <span id="popup-close" onclick="closePopup()">&times;</span>
@@ -39,41 +36,46 @@ header{background:#2d4a3e; color:white; padding:20px; text-align:center}
 <p id="p-benefit" style="color:#666"></p>
 <p id="p-price" class="price"></p>
 <p id="p-desc"></p>
-<div class="btns"><button class="btn">Add to Cart</button><button class="btn buy">Buy Now</button></div>
+<div class="btns">
+<button class="btn" id="popup-cart">Add to Cart</button>
+<button class="btn buy" id="popup-buy">Buy Now</button>
+</div>
 </div>
 </div>
 
 <script>
-// *************** INGA THAAN PRODUCT ADD PANNANUM DA RAJI ****************
+const WA_NUMBER = "918678912300";
 const products = [
   {
     name: "TRIKARA Madhu Sanyam",
     benefit: "100% Natural Herbal Blend for Healthy Lifestyle",
     price: "Rs. 499",
-    image: "images madhu-sanyam.jpg", // un file name
+    image: "images madhu-sanyam.jpg",
     desc: "Helps maintain healthy blood sugar levels. Jamun, Karela, Methi Seeds. Clinically Tested. 100% Ayurvedic."
   },
   {
     name: "Nutricharge Veg Omega",
-    benefit: "Nutricharge Veg Omega is a scientifically crafted plant-based supplement that delivers essential Omega-3 fatty acids. It helps those seeking heart, brain, hormonal, cellular and overall health benefits without relying on fish sources.",
+    benefit: "Plant-based Omega-3 for heart, brain and overall health",
     price: "Rs. 355",
-    image: "Nutricharge Veg Omega.png", // intha photo-vai upload pannanum
-    desc: "Nutricharge Veg Omega is a scientifically crafted plant-based supplement that delivers essential Omega-3 fatty acids. It helps those seeking heart, brain, hormonal, cellular and overall health benefits without relying on fish sources."
+    image: "Nutricharge Veg Omega.png",
+    desc: "Scientifically crafted plant-based supplement that delivers essential Omega-3 fatty acids. Helps heart, brain and overall health without fish sources."
   }
-  // Pudhu product add panna, mela irukka { } -a copy panni inga paste pannu
-  //, potu aprom add pannanum
 ];
-// ************************************************************************
 
 const list = document.getElementById('product-list');
 products.forEach((p, i) => {
   list.innerHTML += `
-  <div class="card" onclick="openPopup(${i})">
-    <img src="${p.image}">
-    <h3>${p.name}</h3>
-    <p style="color:#666; font-size:14px">${p.benefit}</p>
-    <p class="price">${p.price}</p>
-    <div class="btns"><button class="btn" onclick="event.stopPropagation(); addToCart(${i})">Add to Cart</button><button class="btn buy" onclick="event.stopPropagation(); buyNow(${i})">Buy Now</button></div>
+  <div class="card">
+    <div onclick="openPopup(${i})">
+      <img src="${p.image}">
+      <h3>${p.name}</h3>
+      <p style="color:#666; font-size:14px">${p.benefit}</p>
+      <p class="price">${p.price}</p>
+    </div>
+    <div class="btns">
+      <button class="btn" onclick="addToCart(${i})">Add to Cart</button>
+      <button class="btn buy" onclick="buyNow(${i})">Buy Now</button>
+    </div>
   </div>`;
 });
 
@@ -84,13 +86,15 @@ function openPopup(i){
   document.getElementById('p-benefit').innerText = p.benefit;
   document.getElementById('p-price').innerText = p.price;
   document.getElementById('p-desc').innerText = p.desc;
+  document.getElementById('popup-cart').onclick = () => addToCart(i);
+  document.getElementById('popup-buy').onclick = () => buyNow(i);
   document.getElementById('popup').style.display = 'flex';
 }
 function closePopup(){ document.getElementById('popup').style.display = 'none'; }
 function buyNow(i){
   const p = products[i];
-  const msg = `Hi Raji! I want ${p.name} - ${p.price}`;
-  window.open(`https://wa.me/918678912300?text=${encodeURIComponent(msg)}`, '_blank');
+  const msg = `Hi Raji! I want ${p.name} - ${p.price}. From NATURAL RCM ITEMS website`;
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 function addToCart(i){ buyNow(i); }
 </script>
