@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TRIKARA - by Raji</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family: system-ui, sans-serif; background:#f6f3ed; margin:0; color:#222}
+.header{background:#2e5e4e; color:white; padding:25px 20px; text-align:center}
+.header h1{margin:0; letter-spacing:1px}
+.header p{opacity:0.9; margin:5px 0 0}
+.products{display:grid; grid-template-columns: repeat(2, 1fr); gap:15px; padding:15px; max-width:1000px; margin:auto}
+@media(max-width:700px){.products{grid-template-columns:1fr}}
+.card{background:white; padding:14px; border-radius:18px; box-shadow:0 6px 20px rgba(0,0,0,0.06)}
+.card img{width:100%; height:220px; object-fit:cover; border-radius:12px; background:#eee; border:1px solid #eee}
+.card h3{margin:12px 0 4px; font-size:17px}
+.desc{font-size:13px; color:#777; margin:0 0 8px}
+.price{color:#2e5e4e; font-weight:800; font-size:20px; margin:5px 0}
+.btns{display:flex; gap:8px; margin-top:10px}
+.btns button{flex:1; border:0; padding:12px; border-radius:10px; font-weight:700; cursor:pointer}
+.buy{background:#2e5e4e; color:white}
+.cart-btn{background:#fff; color:#2e5e4e; border:2px solid #2e5e4e !important}
+.footer{text-align:center; padding:30px 10px; color:#999; font-size:13px}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>🌿 TRIKARA</h1>
+<p>Iyarkai Maruthuvam | Admin: Raji | Ponneri</p>
+</div>
+
+<div class="products">
+
+<!-- PRODUCT 1: TRIKARA MADHU SANYAM -->
+<div class="card">
+<img src="images/madhu-sanyam.jpg" alt="TRIKARA Madhu Sanyam">
+<h3>TRIKARA Madhu Sanyam</h3>
+<p class="desc">100% Natural Herbal Blend for Healthy Lifestyle</p>
+<p class="price">Rs. 499</p>
+<div class="btns">
+<button class="cart-btn" onclick="alert('Cart la add aayiduchu da!')">Add to Cart</button>
+<button class="buy" onclick="window.open('https://wa.me/918678912300?text=Vanakkam Raji, TRIKARA Madhu Sanyam Rs.499 order pannanum')">Buy Now</button>
+</div>
+</div>
+
+<!-- PRODUCT 2: ITHA COPY PANNI VERA PRODUCT ADD PANNU -->
+<div class="card">
+<img src="images/product2.jpg" alt="Product 2">
+<h3>Product 2 Name Inga Type Pannu</h3>
+<p class="desc">Inga benefit-a type pannu da</p>
+<p class="price">Rs. 299</p>
+<div class="btns">
+<button class="cart-btn">Add to Cart</button>
+<button class="buy" onclick="window.open('https://wa.me/918678912300?text=Vanakkam Raji, Product 2 order pannanum')">Buy Now</button>
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+Admin: Raji | TRIKARA Natural Medicines<br>
+📍 Ponneri, Tamil Nadu | Powered by GitHub Pages
+</div>
+
+</body>
+</html>
