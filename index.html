@@ -73,7 +73,7 @@ products.forEach((p, i) => {
     <h3>${p.name}</h3>
     <p style="color:#666; font-size:14px">${p.benefit}</p>
     <p class="price">${p.price}</p>
-    <div class="btns"><button class="btn">Add to Cart</button><button class="btn buy">Buy Now</button></div>
+    <div class="btns"><button class="btn" onclick="event.stopPropagation(); addToCart(${i})">Add to Cart</button><button class="btn buy" onclick="event.stopPropagation(); buyNow(${i})">Buy Now</button></div>
   </div>`;
 });
 
@@ -87,6 +87,12 @@ function openPopup(i){
   document.getElementById('popup').style.display = 'flex';
 }
 function closePopup(){ document.getElementById('popup').style.display = 'none'; }
+function buyNow(i){
+  const p = products[i];
+  const msg = `Hi Raji! I want ${p.name} - ${p.price}`;
+  window.open(`https://wa.me/919000000000?text=${encodeURIComponent(msg)}`, '_blank');
+}
+function addToCart(i){ buyNow(i); }
 </script>
 </body>
 </html>
