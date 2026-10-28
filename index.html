@@ -11,11 +11,19 @@ header{background:#2d4a3e; color:white; padding:15px 20px; display:flex; justify
 .header-left h1{margin:0; font-size:22px}
 .header-left p{margin:5px 0 0 0; font-size:13px; opacity:0.9}
 #profile-btn{width:45px; height:45px; background:white; color:#2d4a3e; border-radius:50%; display:flex; justify-content:center; align-items:center; font-weight:bold; font-size:20px; cursor:pointer; border:3px solid #a8c5b5; flex-shrink:0}
-.products{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px; padding:20px; max-width:1000px; margin:auto}
+
+/* CATEGORY BAR - PUTHUSU DA */
+.cat-bar{display:flex; gap:10px; overflow-x:auto; padding:15px 20px; background:white; box-shadow:0 2px 10px rgba(0,0,0,0.05); position:sticky; top:0; z-index:10; white-space:nowrap}
+.cat-bar::-webkit-scrollbar{display:none}
+.cat-btn{padding:8px 16px; border-radius:20px; border:2px solid #2d4a3e; background:white; color:#2d4a3e; cursor:pointer; font-weight:bold; font-size:14px; flex-shrink:0}
+.cat-btn.active, .cat-btn:hover{background:#2d4a3e; color:white}
+
+.products{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px; padding:20px; max-width:1200px; margin:auto}
 .card{background:white; border-radius:20px; padding:15px; box-shadow:0 5px 15px rgba(0,0,0,0.1); cursor:pointer; transition:0.2s}
 .card:hover{transform:scale(1.02)}
 .card img{width:100%; height:200px; object-fit:contain; border-radius:15px; border:1px solid #eee}
 .price{color:#2d4a3e; font-weight:bold; font-size:20px}
+.cat-tag{display:inline-block; background:#e8f3ec; color:#2d4a3e; padding:3px 10px; border-radius:10px; font-size:12px; font-weight:bold; margin-bottom:5px}
 .btns{display:flex; gap:10px; margin-top:10px}
 .btn{flex:1; padding:10px; border-radius:10px; border:2px solid #2d4a3e; cursor:pointer; font-weight:bold}
 .buy{background:#2d4a3e; color:white}
@@ -23,27 +31,31 @@ header{background:#2d4a3e; color:white; padding:15px 20px; display:flex; justify
 #popup-content, #profile-content{background:white; max-width:500px; width:100%; border-radius:20px; padding:20px; position:relative; max-height:90vh; overflow-y:auto}
 #popup-close, #profile-close{position:absolute; top:10px; right:15px; font-size:30px; cursor:pointer}
 .profile-img{width:90px; height:90px; border-radius:50%; background:#2d4a3e; color:white; display:flex; justify-content:center; align-items:center; font-size:40px; margin:0 auto 10px auto}
-.profile-details p{margin:10px 0; color:#333; font-size:15px; line-height:1.4}
-.profile-details b{color:#2d4a3e}
+.profile-details p{margin:10px 0; color:#333; font-size:15px}
 .badge{display:inline-block; background:#e8f3ec; color:#2d4a3e; padding:5px 12px; border-radius:20px; font-size:13px; margin:4px; font-weight:bold}
 </style>
 </head>
 <body>
 <header>
 <div class="header-left">
-<h1>🌿 NATURAL RCM ITEMS</h1>
+<h1>🌿 NATURAL RCM WORLD</h1>
 <p>Iyarkai Maruthuvam | Admin: Raji | Podaturpet</p>
 </div>
 <div id="profile-btn" onclick="openProfile()">R</div>
 </header>
 
+<!-- CATEGORY BUTTONS -->
+<div class="cat-bar" id="cat-bar"></div>
+
 <div class="products" id="product-list"></div>
+<p id="no-products" style="text-align:center; color:#666; display:none; padding:40px">Itha category la products illa da, seekiram add pannuvom! 🚀</p>
 
 <!-- Product Popup -->
 <div id="popup" onclick="closePopup()">
 <div id="popup-content" onclick="event.stopPropagation()">
 <span id="popup-close" onclick="closePopup()">&times;</span>
 <img id="p-img" src="" style="width:100%; height:300px; object-fit:contain">
+<span id="p-cat" class="cat-tag"></span>
 <h2 id="p-name"></h2>
 <p id="p-benefit" style="color:#666"></p>
 <p id="p-price" class="price"></p>
@@ -55,125 +67,92 @@ header{background:#2d4a3e; color:white; padding:15px 20px; display:flex; justify
 </div>
 </div>
 
-<!-- PROFILE POPUP WITH YOUR DETAILS -->
+<!-- Profile Popup -->
 <div id="profile-popup" onclick="closeProfile()">
 <div id="profile-content" onclick="event.stopPropagation()">
 <span id="profile-close" onclick="closeProfile()">&times;</span>
 <div class="profile-img">R</div>
-<h2 style="text-align:center; margin:0">RAJI K D</h2>
+<h2 style="text-align:center; margin:0">RAJI</h2>
 <p style="text-align:center; color:#666; margin-top:5px; font-weight:bold">Admin - NATURAL RCM ITEMS</p>
 <hr style="margin:15px 0; border:none; border-top:1px solid #eee">
 <div class="profile-details">
 <p><b>📍 Location:</b> Podaturpet</p>
-<p><b>📞 Phone / WhatsApp:</b> 8678912300</p>
-<p><b>⭐ Experience:</b> Expert in deliverying items to customers..😎</p>
-<p><b>🚚 Delivery Available:</b></p>
-<div>
-<span class="badge">Thiruvallur Dist</span>
-<span class="badge">Chennai Dist</span>
-<span class="badge">Kanchipuram Dist</span>
-<span class="badge">Also having contant in whole Tamil Nadu</span>
-</div>
-<p style="margin-top:15px"><b>💬 About:</b> The RCM WORLD running approximately around 25 years successfully.  We give only naturally containing items, which are used for good health and wealth.  
-  Key Company Details
-Founder & Leadership: Founded by Tilok Chand Chhabra (TC Chhabra).
-
-Headquarters: Bhilwara, Rajasthan, India.
-
-Parent Group Origin: Originates from the Chhabra Group (Fashion Suitings Pvt. Ltd.), which has been in the textile and suiting manufacturing sector since 1977.
-
-Direct Selling Launch: The direct-selling business model under the RCM name officially launched in August 2000.
-
-Business Model: Direct-to-consumer / Network Marketing with an extensive network of independent distributors (Associate Buyers) across India.
-
-Product Portfolio & Brands
-RCM manufactures and markets over 400+ consumer goods spanning several categories:
-
-Food & Grocery: Swechha (spices, snacks, grains, honey, sweets)
-
-Health & Nutrition: Nutricharge (dietary and wellness supplements)
-
-Personal Care & Cosmetics: KeySoul, Nysa, Ena, Cavigo
-
-Household & Cleaning: Pixie
-
-Agriculture: Harit Sanjivani (soil and plant nutrition)
-
-Apparel, Footwear & Accessories: Pair-It, Unimen, and textile fabrics
-
-Plant-Based Foods: Good Dot (vegetarian meats and ready-to-eat meals)
-
-Infrastructure & Network
-Manufacturing & Distribution: Operations include major campus hubs in Rajasthan and multiple production facilities across India.
-
-Retail Footprint: Distributed nationwide through Pick-Up Centers (PUCs), distribution depots, and its official web portal and mobile app (RCM World). </p>
+<p><b>📞 Phone:</b> 8678912300</p>
+<p><b>⭐ Experience:</b> 26 years experience</p>
+<p><b>🚚 Delivery:</b> Thiruvallur, Chennai, Kanchipuram Dist</p>
 </div>
 <div class="btns" style="margin-top:20px">
-<button class="btn buy" style="width:100%" onclick="window.open('https://wa.me/918678912300?text=Hi%20Raji%20Madam!%20Naan%20ungal%20website%20paathen','_blank')">Chat with RAJI on WhatsApp</button>
+<button class="btn buy" style="width:100%" onclick="window.open('https://wa.me/918678912300','_blank')">Chat on WhatsApp</button>
 </div>
 </div>
 </div>
 
 <script>
 const WA_NUMBER = "918678912300";
-const products = [
-  {
-    name: "TRIKARA Madhu Sanyam",
-    benefit: "100% Natural Herbal Blend for Healthy Lifestyle",
-    price: "Rs. 499",
-    image: "images madhu-sanyam.jpg",
-    desc: "Helps maintain healthy blood sugar levels. Jamun, Karela, Methi Seeds. Clinically Tested. 100% Ayurvedic."
-  },
-  {
-    name: "Nutricharge Veg Omega",
-    benefit: "Plant-based Omega-3 for heart, brain and overall health",
-    price: "Rs. 355",
-    image: "Nutricharge Veg Omega.png",
-    desc: "Scientifically crafted plant-based supplement that delivers essential Omega-3 fatty acids. Helps heart, brain and overall health without fish sources."
-  },
-  {
-    name: "Nysa Aloe Hydration Multi Purpose Cream, 80 g",
-    benefit: "Nysa Aloe Hydration Multi-Purpose Cream is a lightweight, non-greasy moisturizer Formulated with Aloe Vera and Beauplex VH, this cream is enriched with Vitamins B3, B5, B6, C, and E to nourish and protect the skin. Suitable for all skin types and seasons, it is perfect for maintaining healthy, glowing skin on both the face and body.",
-    price: "Rs. 120",
-    image: "Nysa Alon Hydration.png",
-    desc: "Aloe Vera Extract: Known for its soothing and moisturizing properties, it is ideal for calming irritated skin and maintaining hydration levels.  Multi Vitamins B3, B5, B6, C and E which helps to reduce acne, besides strengthening skin barrier and it also helps reducing the chances of cell damage from UV."
-  },
-  {
-    name:"Authenzaa Kid's Boy T-Shirt ACKBT011-NAVY-30",
-    benefit: "Comfortable to kids for wearing t-shirts",
-    price: "Rs. 299",
-    image: "Blue tshirt.png",
-    desc: "Crafted from high-quality, breathable cotton fabric, this kid’s boy T-shirt ensures maximum comfort and softness against the skin. The lightweight material allows easy air circulation, making it perfect for all-day wear in any season."
-  },
-  {
-    name:"Authenzaa Kid's Boy T-Shirt ACKBT010-Skin-36",
-    benefit: "Wearing tshirt for kids, they are feels comfortable and freestyle",
-    price: "Rs.299",
-    image: "Sandal tshirt.png",
-    desc: "Crafted from high-quality, breathable cotton fabric, this kid’s boy T-shirt ensures maximum comfort and softness against the skin. The lightweight material allows easy air circulation, making it perfect for all-day wear in any season."
-  }   
- ];
+const categories = ["All", "Medicines", "Mens wear", "Women's wear", "Health Care", "Kids wear", "Accessories", "Footware", "Luggage & Bags", "Stationary", "Home Appliances"];
 
+const products = [
+  { name: "TRIKARA Madhu Sanyam", benefit: "100% Natural Herbal Blend", price: "Rs. 499", image: "images madhu-sanyam.jpg", desc: "Helps maintain healthy blood sugar levels. Jamun, Karela, Methi Seeds.", category: "Medicines" },
+  { name: "Nutricharge Veg Omega", benefit: "Plant-based Omega-3", price: "Rs. 355", image: "Nutricharge Veg Omega.png", desc: "Plant-based Omega-3 for heart, brain and overall health.", category: "Medicines" },
+  { name: "Nysa Aloe Hydration Cream", benefit: "Multi-Purpose Cream 80g", price: "Rs. 120", image: "Nysa Alon Hydration.png", desc: "Aloe Vera with Vitamins B3, B5, B6, C, E for glowing skin.", category: "Health Care" },
+  // Sample products for other categories - Nee maathiko da
+  { name: "Men's Cotton T-Shirt", benefit: "Comfortable daily wear", price: "Rs. 399", image: "Sandal tshirt.png", desc: "Premium cotton t-shirt for men.", category: "Mens wear" },
+  { name: "Women's Kurti", benefit: "Elegant design", price: "Rs. 699", image: "https://via.placeholder.com/300x200?text=Womens+Wear", desc: "Beautiful kurti for women's collection.", category: "Women's wear" },
+  { name: "Kids Dress", benefit: "Soft & Comfortable", price: "Rs. 499", image: "Blue tshirt.png", desc: "Cute dress for kids.", category: "Kids wear" }
+];
+
+const catBar = document.getElementById('cat-bar');
 const list = document.getElementById('product-list');
-products.forEach((p, i) => {
-  list.innerHTML += `
-  <div class="card">
-    <div onclick="openPopup(${i})">
-      <img src="${p.image}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
-      <h3>${p.name}</h3>
-      <p style="color:#666; font-size:14px">${p.benefit}</p>
-      <p class="price">${p.price}</p>
-    </div>
-    <div class="btns">
-      <button class="btn" onclick="addToCart(${i})">Add to Cart</button>
-      <button class="btn buy" onclick="buyNow(${i})">Buy Now</button>
-    </div>
-  </div>`;
+let activeCat = "All";
+
+categories.forEach(cat => {
+  const btn = document.createElement('button');
+  btn.className = 'cat-btn' + (cat === "All" ? ' active' : '');
+  btn.innerText = cat;
+  btn.onclick = () => filterCategory(cat, btn);
+  catBar.appendChild(btn);
 });
+
+function filterCategory(cat, btnEl){
+  activeCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btnEl.classList.add('active');
+  renderProducts();
+}
+
+function renderProducts(){
+  list.innerHTML = "";
+  const filtered = activeCat === "All" ? products : products.filter(p=>p.category === activeCat);
+  if(filtered.length === 0){
+    document.getElementById('no-products').style.display = 'block';
+    return;
+  }
+  document.getElementById('no-products').style.display = 'none';
+  filtered.forEach((p) => {
+    const realIndex = products.indexOf(p);
+    list.innerHTML += `
+    <div class="card">
+      <div onclick="openPopup(${realIndex})">
+        <span class="cat-tag">${p.category}</span>
+        <img src="${p.image}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+        <h3>${p.name}</h3>
+        <p style="color:#666; font-size:14px">${p.benefit}</p>
+        <p class="price">${p.price}</p>
+      </div>
+      <div class="btns">
+        <button class="btn" onclick="addToCart(${realIndex})">Add to Cart</button>
+        <button class="btn buy" onclick="buyNow(${realIndex})">Buy Now</button>
+      </div>
+    </div>`;
+  });
+}
+
+renderProducts();
 
 function openPopup(i){
   const p = products[i];
   document.getElementById('p-img').src = p.image;
+  document.getElementById('p-cat').innerText = p.category;
   document.getElementById('p-name').innerText = p.name;
   document.getElementById('p-benefit').innerText = p.benefit;
   document.getElementById('p-price').innerText = p.price;
@@ -183,13 +162,11 @@ function openPopup(i){
   document.getElementById('popup').style.display = 'flex';
 }
 function closePopup(){ document.getElementById('popup').style.display = 'none'; }
-
 function openProfile(){ document.getElementById('profile-popup').style.display = 'flex'; }
 function closeProfile(){ document.getElementById('profile-popup').style.display = 'none'; }
-
 function buyNow(i){
   const p = products[i];
-  const msg = `Hi Raji! I want ${p.name} - ${p.price}. From NATURAL RCM ITEMS website`;
+  const msg = `Hi Raji! I want ${p.name} - ${p.price} (${p.category}). From website`;
   window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 function addToCart(i){ buyNow(i); }
