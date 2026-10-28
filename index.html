@@ -1,3 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRIKARA - Iyarkai Maruthuvam</title>
+<style>
+body{font-family: sans-serif; background:#F9F5EB; margin:0}
+header{background:#2d4a3e; color:white; padding:20px; text-align:center}
+.products{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px; padding:20px; max-width:1000px; margin:auto}
+.card{background:white; border-radius:20px; padding:15px; box-shadow:0 5px 15px rgba(0,0,0,0.1); cursor:pointer; transition:0.2s}
+.card:hover{transform:scale(1.02)}
+.card img{width:100%; height:200px; object-fit:contain; border-radius:15px; border:1px solid #eee}
+.price{color:#2d4a3e; font-weight:bold; font-size:20px}
+.btns{display:flex; gap:10px; margin-top:10px}
+.btn{flex:1; padding:10px; border-radius:10px; border:2px solid #2d4a3e; cursor:pointer; font-weight:bold}
+.buy{background:#2d4a3e; color:white}
+#popup{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000; padding:15px}
+#popup-content{background:white; max-width:500px; width:100%; border-radius:20px; padding:20px; position:relative}
+#popup-close{position:absolute; top:10px; right:15px; font-size:30px; cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+<h1>🌿 NATURAL RCM ITEMS</h1>
+<p>Iyarkai Maruthuvam | Admin: Raji | Podaturpet</p>
+</header>
+
+<div class="products" id="product-list"></div>
+
+<div id="popup" onclick="closePopup()">
+<div id="popup-content" onclick="event.stopPropagation()">
+<span id="popup-close" onclick="closePopup()">&times;</span>
+<img id="p-img" src="" style="width:100%; height:300px; object-fit:contain">
+<h2 id="p-name"></h2>
+<p id="p-benefit" style="color:#666"></p>
+<p id="p-price" class="price"></p>
+<p id="p-desc"></p>
+<div class="btns">
+<button class="btn" id="popup-cart">Add to Cart</button>
+<button class="btn buy" id="popup-buy">Buy Now</button>
+</div>
+</div>
+</div>
+
 <script>
 const WA_NUMBER = "918678912300";
 const products = [
@@ -23,3 +68,42 @@ const products = [
     desc: "Useful for Software Engineering things."
   }
 ];
+
+const list = document.getElementById('product-list');
+products.forEach((p, i) => {
+  list.innerHTML += `
+  <div class="card">
+    <div onclick="openPopup(${i})">
+      <img src="${p.image}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+      <h3>${p.name}</h3>
+      <p style="color:#666; font-size:14px">${p.benefit}</p>
+      <p class="price">${p.price}</p>
+    </div>
+    <div class="btns">
+      <button class="btn" onclick="addToCart(${i})">Add to Cart</button>
+      <button class="btn buy" onclick="buyNow(${i})">Buy Now</button>
+    </div>
+  </div>`;
+});
+
+function openPopup(i){
+  const p = products[i];
+  document.getElementById('p-img').src = p.image;
+  document.getElementById('p-name').innerText = p.name;
+  document.getElementById('p-benefit').innerText = p.benefit;
+  document.getElementById('p-price').innerText = p.price;
+  document.getElementById('p-desc').innerText = p.desc;
+  document.getElementById('popup-cart').onclick = () => addToCart(i);
+  document.getElementById('popup-buy').onclick = () => buyNow(i);
+  document.getElementById('popup').style.display = 'flex';
+}
+function closePopup(){ document.getElementById('popup').style.display = 'none'; }
+function buyNow(i){
+  const p = products[i];
+  const msg = `Hi Raji! I want ${p.name} - ${p.price}. From NATURAL RCM ITEMS website`;
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+function addToCart(i){ buyNow(i); }
+</script>
+</body>
+</html>
