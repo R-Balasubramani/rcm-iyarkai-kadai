@@ -6,7 +6,11 @@
 <title>TRIKARA - Iyarkai Maruthuvam</title>
 <style>
 body{font-family: sans-serif; background:#F9F5EB; margin:0}
-header{background:#2d4a3e; color:white; padding:20px; text-align:center}
+header{background:#2d4a3e; color:white; padding:15px 20px; display:flex; justify-content:space-between; align-items:center}
+.header-left{text-align:left}
+.header-left h1{margin:0; font-size:22px}
+.header-left p{margin:5px 0 0 0; font-size:13px; opacity:0.9}
+#profile-btn{width:45px; height:45px; background:white; color:#2d4a3e; border-radius:50%; display:flex; justify-content:center; align-items:center; font-weight:bold; font-size:20px; cursor:pointer; border:3px solid #a8c5b5; flex-shrink:0}
 .products{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px; padding:20px; max-width:1000px; margin:auto}
 .card{background:white; border-radius:20px; padding:15px; box-shadow:0 5px 15px rgba(0,0,0,0.1); cursor:pointer; transition:0.2s}
 .card:hover{transform:scale(1.02)}
@@ -15,19 +19,27 @@ header{background:#2d4a3e; color:white; padding:20px; text-align:center}
 .btns{display:flex; gap:10px; margin-top:10px}
 .btn{flex:1; padding:10px; border-radius:10px; border:2px solid #2d4a3e; cursor:pointer; font-weight:bold}
 .buy{background:#2d4a3e; color:white}
-#popup{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000; padding:15px}
-#popup-content{background:white; max-width:500px; width:100%; border-radius:20px; padding:20px; position:relative}
-#popup-close{position:absolute; top:10px; right:15px; font-size:30px; cursor:pointer}
+#popup, #profile-popup{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000; padding:15px}
+#popup-content, #profile-content{background:white; max-width:500px; width:100%; border-radius:20px; padding:20px; position:relative; max-height:90vh; overflow-y:auto}
+#popup-close, #profile-close{position:absolute; top:10px; right:15px; font-size:30px; cursor:pointer}
+.profile-img{width:90px; height:90px; border-radius:50%; background:#2d4a3e; color:white; display:flex; justify-content:center; align-items:center; font-size:40px; margin:0 auto 10px auto}
+.profile-details p{margin:10px 0; color:#333; font-size:15px; line-height:1.4}
+.profile-details b{color:#2d4a3e}
+.badge{display:inline-block; background:#e8f3ec; color:#2d4a3e; padding:5px 12px; border-radius:20px; font-size:13px; margin:4px; font-weight:bold}
 </style>
 </head>
 <body>
 <header>
+<div class="header-left">
 <h1>🌿 NATURAL RCM ITEMS</h1>
 <p>Iyarkai Maruthuvam | Admin: Raji | Podaturpet</p>
+</div>
+<div id="profile-btn" onclick="openProfile()">R</div>
 </header>
 
 <div class="products" id="product-list"></div>
 
+<!-- Product Popup -->
 <div id="popup" onclick="closePopup()">
 <div id="popup-content" onclick="event.stopPropagation()">
 <span id="popup-close" onclick="closePopup()">&times;</span>
@@ -39,6 +51,32 @@ header{background:#2d4a3e; color:white; padding:20px; text-align:center}
 <div class="btns">
 <button class="btn" id="popup-cart">Add to Cart</button>
 <button class="btn buy" id="popup-buy">Buy Now</button>
+</div>
+</div>
+</div>
+
+<!-- PROFILE POPUP WITH YOUR DETAILS -->
+<div id="profile-popup" onclick="closeProfile()">
+<div id="profile-content" onclick="event.stopPropagation()">
+<span id="profile-close" onclick="closeProfile()">&times;</span>
+<div class="profile-img">R</div>
+<h2 style="text-align:center; margin:0">RAJI</h2>
+<p style="text-align:center; color:#666; margin-top:5px; font-weight:bold">Admin - NATURAL RCM ITEMS</p>
+<hr style="margin:15px 0; border:none; border-top:1px solid #eee">
+<div class="profile-details">
+<p><b>📍 Location:</b> Podaturpet</p>
+<p><b>📞 Phone / WhatsApp:</b> 8678912300</p>
+<p><b>⭐ Experience:</b> 26 years experience in Iyarkai Maruthuvam & Natural Products</p>
+<p><b>🚚 Delivery Available:</b></p>
+<div>
+<span class="badge">Thiruvallur Dist</span>
+<span class="badge">Chennai Dist</span>
+<span class="badge">Kanchipuram Dist</span>
+</div>
+<p style="margin-top:15px"><b>💬 About:</b> 26 varusha anubavam vaaintha iyarkai maruthuvam. Ungal healthy lifestyle kaga 100% natural products mattum thaan. Thiruvallur, Chennai, Kanchipuram full ah delivery pannurom.</p>
+</div>
+<div class="btns" style="margin-top:20px">
+<button class="btn buy" style="width:100%" onclick="window.open('https://wa.me/918678912300?text=Hi%20Raji%20Madam!%20Naan%20ungal%20website%20paathen','_blank')">Chat with RAJI on WhatsApp</button>
 </div>
 </div>
 </div>
@@ -98,6 +136,10 @@ function openPopup(i){
   document.getElementById('popup').style.display = 'flex';
 }
 function closePopup(){ document.getElementById('popup').style.display = 'none'; }
+
+function openProfile(){ document.getElementById('profile-popup').style.display = 'flex'; }
+function closeProfile(){ document.getElementById('profile-popup').style.display = 'none'; }
+
 function buyNow(i){
   const p = products[i];
   const msg = `Hi Raji! I want ${p.name} - ${p.price}. From NATURAL RCM ITEMS website`;
