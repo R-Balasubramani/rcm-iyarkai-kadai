@@ -103,7 +103,7 @@ function openProfile(){ document.getElementById('profile-popup').style.display =
 function closeProfile(){ document.getElementById('profile-popup').style.display = 'none'; }
 function buyNow(i){
   const p = products[i];
-  const msg = `Hi Raji! I want ${p.name} - ${p.price} (${p.category}). From website`;
+  const msg = `Hi Raji!<br> I want ${p.name}<br> ${p.price}<br> (${p.category} - category). Thank you sir...!!!<br> Please message me for order confirmation sir..!!`;
   window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 function addToCart(i){ buyNow(i); }
